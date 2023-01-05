@@ -1,9 +1,14 @@
-import React from 'react'
+import NewMeetupForm from '../../components/meetups/NewMeetupForm'
 
-function NewMeetup() {
+function NewMeetupPage() {
+
+    function addMeetupHandler(enteredMeetupData){
+        console.log(enteredMeetupData)
+    }
+
   return (
-    <div>New Meetup Page</div>
+    <NewMeetupForm onAddMeetup={addMeetupHandler}/>
   )
 }
 
-export default NewMeetup
+export default NewMeetupPage
