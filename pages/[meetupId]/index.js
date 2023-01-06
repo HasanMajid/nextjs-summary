@@ -11,10 +11,11 @@ function Meetup() {
   );
 }
 
+// required for dynamic pages if you want to use getStaticProps
 export async function getStaticPaths() {
   return {
     fallback: false, // if true, nextjs will try to generate the page on the fly if the page is not found
-    paths: [
+    paths: [ // this lists all possible paths that should be pre-generated
       {
         params: {
           meetupId: "m1",
