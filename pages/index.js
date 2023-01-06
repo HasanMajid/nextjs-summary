@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MeetupList from "../components/meetups/MeetupList";
 
 const DUMMY_MEETUPS = [
@@ -22,15 +21,23 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-function HomePage() {
-  const [loadedMeetups, setLoadedMeetups] = useState([])
+function HomePage(props) {
 
-  // nextjs does not wait for this useEffect to finish before rendering the page
-  useEffect(() => {
-    // send a http request and fetch data
-    setLoadedMeetups(DUMMY_MEETUPS)
-  }, [])
-  return <MeetupList meetups={loadedMeetups} />;
+  return <MeetupList meetups={props.meetups} />;
+}
+
+// nextjs will run this function before rendering the page
+// this prepares all props for the component function
+// this code will never run on the client side
+export function getStaticProps(){
+  // fetch data from an API
+  // you need to return an object with props
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS
+    },
+    revalidate: 1 // nextjs will regenerate the page every 1 second
+  }
 }
 
 export default HomePage;
