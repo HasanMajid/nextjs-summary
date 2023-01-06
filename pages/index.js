@@ -25,18 +25,36 @@ function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
-// nextjs will run this function before rendering the page
-// this prepares all props for the component function
-// this code will never run on the client side
-export function getStaticProps() {
+// will always run on the server side
+// will never run on the client side
+// this code will run on every request
+export async function getServerSideProps(context) {
+  const req = context.req;
+  const res = context.res;
+  
   // fetch data from an API
   // you need to return an object with props
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
-    revalidate: 10, // nextjs will regenerate the page every 1 second is new requests come in
+    // no need to revalidate because this function will run on every request
   };
 }
+
+
+// // nextjs will run this function before rendering the page
+// // this prepares all props for the component function
+// // this code will never run on the client side
+// export function getStaticProps() {
+//   // fetch data from an API
+//   // you need to return an object with props
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     revalidate: 10, // nextjs will regenerate the page every 1 second is new requests come in
+//   };
+// }
 
 export default HomePage;
